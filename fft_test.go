@@ -25,15 +25,25 @@ func Test_DFT(t *testing.T) {
 	}
 
 	fmt.Println("\n============= Lib1 FFT ===========")
-	lib1FFT := fft1.Fft(x, false)
+	libResult := fft1.Fft(x, false)
 	for i := 0; i < max; i++ {
-		fmt.Println(lib1FFT[i])
+		fmt.Println(libResult[i])
 	}
 
 	fmt.Println("\n============= My FFT ===========")
-	resFFT := MyFFT(x)
+	myResult := MyFFT(x)
 	for i := 0; i < max; i++ {
-		fmt.Println(resFFT[i])
+		fmt.Println(myResult[i])
+	}
+
+	// because of working on float, the results sometime cannot matched 100%
+	// so we just require they are not different too much
+	for idx, item := range myResult {
+		realDiff := math.Abs(real(item) - real(libResult[idx]))
+		imgDiff := math.Abs(imag(item) - imag(libResult[idx]))
+		if realDiff > 0.0005 || imgDiff > 0.0005 {
+			t.Fail()
+		}
 	}
 }
 

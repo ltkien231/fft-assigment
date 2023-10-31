@@ -10,7 +10,7 @@ import (
 	fft1 "scientificgo.org/fft"
 )
 
-func Test_DFT(t *testing.T) {
+func Test_FFT(t *testing.T) {
 	max := 8
 	x := make([]complex128, max)
 	for i := 0; i < max; i++ {
